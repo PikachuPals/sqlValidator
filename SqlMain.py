@@ -49,13 +49,15 @@ for k, v in subQueries.items():
     startIndex = int(k) - diff
     endIndex = int(v) - diff
 
-    queryVariables[dynVar] = inputQuery[startIndex:endIndex]    
+    queryVariables[dynVar] = sqlValidator(inputQuery[startIndex:endIndex])    
     inputQuery = inputQuery.replace(inputQuery[startIndex:endIndex], "{" + str(dynVar) + "}", 1)
     
     diff += (v - k - 3)
     dynVar += 1
 
-print(inputQuery)
-    
+print(inputQuery) # Output altered query.
+
+for query in range(0, len(queryVariables)):
+    print(queryVariables.get(query).query) #Get query from object.
 
 #SELECT SalesOrderID, LineTotal,(SELECT AVG(LineTotal) FROM Sales.SalesOrderDetail) AS AverageLineTotal, LineTotal - (SELECT AVG(LineTotal) FROM Sales.SalesOrderDetail) AS Variance FROM Sales.SalesOrderDetail
