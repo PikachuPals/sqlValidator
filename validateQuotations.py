@@ -5,12 +5,9 @@ import re
 
 import SqlTokens as retrieveTokens
 
-def checkQuotations(sql):
-    whereTokens = retrieveTokens.whereTokens(sql.tokens)
-    idTokens = retrieveTokens.identifierTokens(sql.tokens)
+def checkQuotations(sqlTokens):
+    whereTokens = retrieveTokens.whereTokens(sqlTokens)
+    idTokens = retrieveTokens.identifierTokens(sqlTokens)
 
-    parenthesisRgx = r"\([\w]+\)"
-
-    for idToken in idTokens:
-        print(idToken)
+    print(idTokens)
         

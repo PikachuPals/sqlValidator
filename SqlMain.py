@@ -35,10 +35,8 @@ def findAll(searchString, query):
         index = query.find(searchString, index + 1)
 
 inputQuery = queryIntake()
-#test = sqlValidator(inputQuery)
 
 subQueries = identifySubQueries(inputQuery)
-print(subQueries)
 
 queryVariables = {}
 dynVar = 0
@@ -49,15 +47,12 @@ for k, v in subQueries.items():
     startIndex = int(k) - diff
     endIndex = int(v) - diff
 
-    queryVariables[dynVar] = sqlValidator(inputQuery[startIndex:endIndex])    
+    queryVariables[dynVar] = sqlValidator(inputQuery[startIndex + 1:endIndex - 1])    
     inputQuery = inputQuery.replace(inputQuery[startIndex:endIndex], "{" + str(dynVar) + "}", 1)
     
     diff += (v - k - 3)
     dynVar += 1
 
-print(inputQuery) # Output altered query.
-
-for query in range(0, len(queryVariables)):
-    print(queryVariables.get(query).query) #Get query from object.
+sqlValidator(inputQuery)
 
 #SELECT SalesOrderID, LineTotal,(SELECT AVG(LineTotal) FROM Sales.SalesOrderDetail) AS AverageLineTotal, LineTotal - (SELECT AVG(LineTotal) FROM Sales.SalesOrderDetail) AS Variance FROM Sales.SalesOrderDetail
