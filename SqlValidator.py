@@ -7,8 +7,9 @@ import validateQuotations as valQuotes
 
 class sqlValidator:
 
-    def __init__(self, statement):
+    def __init__(self, statement, subquery = False):
         self.query = statement
+        self.subquery = subquery
         self.tokens = self.queryTokens()
 
         self.validate()
