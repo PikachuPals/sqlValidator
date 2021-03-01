@@ -24,5 +24,8 @@ def whereTokens(tokens):
     for token in tokens:
         if isinstance(token, Where):
             whereTokens.append(token)
-
-    return whereTokens
+            
+    if len(whereTokens) == 0:
+        return whereTokens
+    else:
+        return whereTokens[0].tokens
