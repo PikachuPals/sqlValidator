@@ -47,7 +47,7 @@ for k, v in subQueries.items():
     startIndex = int(k) - diff
     endIndex = int(v) - diff
 
-    queryVariables[dynVar] = sqlValidator(inputQuery[startIndex + 1:endIndex - 1])    
+    queryVariables[dynVar] = sqlValidator(inputQuery[startIndex + 1:endIndex - 1], True)    
     inputQuery = inputQuery.replace(inputQuery[startIndex:endIndex], "{" + str(dynVar) + "}", 1)
     
     diff += (v - k - 3)
