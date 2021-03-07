@@ -21,4 +21,11 @@ class sqlValidator:
         return tokens
 
     def validate(self):
-        valQuotes.checkQuotations(self.tokens)
+        valQuotes.checkQuotations(self)
+
+    def checkMultiColumn(self):
+         return False
+
+    def alterQuery(self):
+        return False
+        
