@@ -1,8 +1,8 @@
 
 def cmdLineOutput(statement, change, reason):
 
-    print(statement)
-    print(change)
+    print(str(statement))
+    print("Resolution: " + change)
     print(reason)
 
     confirmation = input("Accept Changes Y/N?")
