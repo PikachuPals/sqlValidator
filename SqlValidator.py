@@ -7,9 +7,8 @@ import validateQuotations as valQuotes
 
 class sqlValidator:
 
-    def __init__(self, statement, subquery = False):
+    def __init__(self, statement):
         self.query = statement
-        self.subquery = subquery
         self.parsed = sqlparse.parse(self.query)[0]
         self.tokens = self.parsed.tokens
 
@@ -19,10 +18,12 @@ class sqlValidator:
     def validate(self):
         valQuotes.checkQuotations(self)
 
-    def checkMultiColumn(self):
-        return False
+    def getTokens(self):
+        return self.tokens
+
+    def getParsed(self):
+        return self.parsed
 
     def alterQuery(self, tokenIndex, newToken):
         self.parsed.tokens[tokenIndex] = newToken
-        
-        
+        self.query = str(self.parsed)
