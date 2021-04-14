@@ -12,15 +12,21 @@ class sqlResolver:
         self.reason = reason
 
     def topLevelChange(self):
-        newString = underlineText(validator.tokens[tokenIndex].value)
+        placeholderParse = self.validator.getParsed()
+        errorInStatement = underlineText(placeholderParse.tokens[self.tokenIndex].value)
+        placeholderParse.tokens[self.tokenIndex].value = errorInStatement
+
+        if OI.cmdLineOutput(placeholderParse, self.change, self.reason):
+            newToken = sqlparse.parse(self.change)[0].tokens[0]
+            self.validator.alterQuery(self.tokenIndex, newToken)
+
+    def whereLeftChange(self):
+        newString = underlineText(validator.tokens[self.tokenIndex].value)
         newToken = sqlparse.parse(newString)[0].tokens[0]
 
-        validator.alterQuery(tokenIndex, newToken)
+        validator.alterQuery(self.tokenIndex, newToken)
 
-        OI.cmdLineOutput(validator.parsed, change, reason)
-        
-    def whereLeftChange(self):
-        return None
+        OI.cmdLineOutput(validator.parsed, change, self.reason)
 
     def whereRightChange(self):
         return None
