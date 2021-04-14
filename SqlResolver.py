@@ -1,5 +1,8 @@
 import outputInterface as OI
 import sqlparse
+import os
+
+os.system("")
 
 class sqlResolver:
 
@@ -32,4 +35,4 @@ class sqlResolver:
         return None
 
 def underlineText(text):
-    return "\u0332".join(text)
+    return u"\u001b[4m" + text + "\u001b[0m"
