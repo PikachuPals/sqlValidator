@@ -27,3 +27,7 @@ class sqlValidator:
     def alterQuery(self, tokenIndex, newToken):
         self.parsed.tokens[tokenIndex] = newToken
         self.query = str(self.parsed)
+
+    def alterQueryInnerToken(self, tokenIndex, innerIndex, newToken):
+        self.parsed.tokens[tokenIndex].tokens[innerIndex] = newToken
+        self.query = str(self.parsed)
