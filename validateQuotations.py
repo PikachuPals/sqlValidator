@@ -10,38 +10,18 @@ from Reasoning import reason
 def checkQuotations(validator):
     sqlTokens = validator.tokens
 
-    # Iterate to where and find wrong identifiers.
+    # Iterate to where and find incorrect tokens.
     tokenIndex = 0
 
     for token in sqlTokens:
 
-        if isinstance(token, Where):
-
-            for innerToken in token:
-                if isinstance(innerToken, Comparison):
-                    resolver = misQuotedSelectIdentifier(token.tokens[0], tokenIndex, validator)
-
-                    if resolver is not None:
-                        resolver.whereLeftChange()
-
-            tokenIndex += 1
+        if token.ttype == sqlparse.tokens.Token.Literal.String.Single:
+            misQuotedSelectIdentifier(token, tokenIndex, validator)
 
         elif isinstance(token, IdentifierList):
-            for identifier in token.get_identifiers():
-                resolver = misQuotedSelectIdentifier(identifier, tokenIndex, validator)
-
-                if resolver is not None:
-                    resolver.topLevelChange()
-
-                if identifier.has_alias():
-                    resolver = misQuotedAlias(token.tokens[0], tokenIndex, validator)
-                    if resolver is not None:
-                        resolver.aliasChange()
-
-        else:
-            resolver = misQuotedSelectIdentifier(token, tokenIndex, validator)
-            if resolver is not None:
-                resolver.topLevelChange()
+            for innerIndex, identifier in enumerate(token.tokens):
+                if identifier.ttype == sqlparse.tokens.Token.Literal.String.Single:
+                    misQuotedInnerIdentifier(identifier, tokenIndex, innerIndex, validator)
 
         tokenIndex += 1
 
@@ -51,15 +31,25 @@ def misQuotedSelectIdentifier(token, tokenIndex, validator):
     if tokenString.startswith("'") and tokenString.endswith("'"):
         tokenString = '"' + tokenString[1: -1] + '"'
 
-        return sqlResolver(validator, tokenIndex, tokenString, reason["misQuotedSelectIdentifier"])
+        resolver = sqlResolver(validator, tokenIndex, tokenString, reason["misQuotedSelectIdentifier"])
+        resolver.rootChange()
 
-    else:
-        return None
+
+def misQuotedInnerIdentifier(token, tokenIndex, innerIndex, validator):
+    tokenString = token.value
+
+    if tokenString.startswith("'") and tokenString.endswith("'"):
+        tokenString = '"' + tokenString[1: -1] + '"'
+
+        resolver = sqlResolver(validator, tokenIndex, tokenString, reason["misQuotedSelectIdentifier"], innerIndex)
+        resolver.innerTokenRootChange()
+
+
 
 def misQuotedAlias(token, tokenIndex, validator):
     aliasRegex = r"(?i)(?<=as )(.+$)"
 
-    aliasMatch = re.match(aliasRegex, token)
+    aliasMatch = re.search(aliasRegex, token.value)
     alias = aliasMatch.group(0)
 
     if alias.startswith("'") and alias.endswith("'"):
@@ -73,3 +63,6 @@ def misQuotedAlias(token, tokenIndex, validator):
 
             return sqlResolver(validator, tokenIndex, alias, reason["aliasMissingQuotes"])
     pass
+
+
+# TODO Check entire string, then generate correct alias and identifier.
