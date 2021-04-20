@@ -5,9 +5,9 @@ def cmdLineOutput(statement, change, reason):
     print("Resolution: " + change)
     print(reason)
 
-    confirmation = input("Accept Changes Y/N?")
+    confirmation = input("Accept Changes Y/N? ").upper()
 
-    if confirmation:
+    if confirmation == "Y":
         return True
     else:
         return False
