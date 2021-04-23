@@ -21,8 +21,9 @@ class sqlValidator:
     def getTokens(self):
         return self.tokens
 
+    # Returns a new parsed object to avoid overwriting old parsed object.
     def getParsed(self):
-        return self.parsed
+        return sqlparse.parse(self.query)[0]
 
     def alterQuery(self, tokenIndex, newToken):
         self.parsed.tokens[tokenIndex] = newToken
