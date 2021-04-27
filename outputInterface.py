@@ -6,7 +6,7 @@ def cmdLineOutput(statement, change, reason):
     print("         " + str(statement))
     print("\nResolution:")
     print("         " + change)
-    print("\nExplanation: \n")
+    print("\nExplanation:\n")
     print("         " + reason)
 
     confirmation = input("\nAccept Changes Y/N? ").upper()
