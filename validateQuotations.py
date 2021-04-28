@@ -3,7 +3,6 @@ from sqlparse.tokens import *
 from sqlparse.sql import *
 import re
 
-import SqlTokens as retrieveTokens
 from SqlResolver import sqlResolver
 from Reasoning import reason
 
