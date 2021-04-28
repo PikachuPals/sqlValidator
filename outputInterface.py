@@ -2,12 +2,14 @@ cmdline = True
 
 def cmdLineOutput(statement, change, reason):
 
-    print("\n\n\nQuery:")
-    print("         " + str(statement))
-    print("\nResolution:")
-    print("         " + change)
-    print("\nExplanation:\n")
-    print("         " + reason)
+    seperatorText = "-" * 25
+    print("\n" + seperatorText)
+    print("/\n| Query:")
+    print("|         " + str(statement))
+    print("\n|  Resolution:")
+    print("|         " + change)
+    print("\n|  Explanation:\n|")
+    print("\         " + reason)
 
     confirmation = input("\nAccept Changes Y/N? ").upper()
 
