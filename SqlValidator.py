@@ -3,7 +3,7 @@ from sqlparse.tokens import *
 import re
 
 import SqlTokens as retrieveTokens
-import validateQuotations as valQuotes
+import validationManager as valManager
 
 class sqlValidator:
 
@@ -16,7 +16,7 @@ class sqlValidator:
 
 
     def validate(self):
-        valQuotes.checkQuotations(self)
+        valManager.runValidations(self)
 
     def getTokens(self):
         return self.tokens
