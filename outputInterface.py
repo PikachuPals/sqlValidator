@@ -13,7 +13,7 @@ def cmdLineOutput(statement, change, reason):
 
     confirmation = input("\nAccept Changes Y/N? ").upper()
 
-    if confirmation == "Y":
+    if confirmation == "Y" or confirmation == "YES":
         return True
     else:
         return False
