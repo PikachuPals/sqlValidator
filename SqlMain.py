@@ -1,13 +1,21 @@
 import re
-from SqlValidator import sqlValidator
-from validatorCreator import createValidators
+
+from sqlObjects.validatorCreator import createValidators
+from config import cmdLine
 
 def queryIntake():
-    query = input("Enter SQL Query: ")
+    query = input("\nEnter 'q' to quit.\nEnter SQL Query: ")
     return query
 
-inputQuery = queryIntake()
+def cmdLineInput():
+    inputQuery = queryIntake()
 
-createValidators(inputQuery)
+    while inputQuery != "q":
+        createValidators(inputQuery)
+        inputQuery = queryIntake()
+
+if __name__ == "__main__":
+    if cmdLine:
+        cmdLineInput()
 
 #SELECT SalesOrderID, LineTotal,(SELECT AVG(LineTotal) FROM Sales.SalesOrderDetail) AS AverageLineTotal, LineTotal - (SELECT AVG(LineTotal) FROM Sales.SalesOrderDetail) AS Variance FROM Sales.SalesOrderDetail

@@ -3,7 +3,7 @@ from sqlparse.tokens import *
 import re
 
 import SqlTokens as retrieveTokens
-import validationManager as valManager
+import validations.validationManager as valManager
 
 class sqlValidator:
 
@@ -13,7 +13,6 @@ class sqlValidator:
         self.tokens = self.parsed.tokens
 
         self.validate()
-
 
     def validate(self):
         valManager.runValidations(self)
@@ -32,3 +31,6 @@ class sqlValidator:
     def alterQueryInnerToken(self, tokenIndex, innerIndex, newToken):
         self.parsed.tokens[tokenIndex].tokens[innerIndex] = newToken
         self.query = str(self.parsed)
+
+    def updateParsed(self):
+        self.parsed = sqlparse.parse(self.query)[0]

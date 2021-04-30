@@ -1,5 +1,5 @@
-import validateQuotations as valQuotes
-import validateTableAlias as valTableAlias
+import validations.validateQuotations as valQuotes
+import validations.validateTableAlias as valTableAlias
 
 def runValidations(validator):
     valQuotes.checkQuotations(validator)

@@ -3,8 +3,8 @@ from sqlparse.tokens import *
 from sqlparse.sql import *
 import re
 
-from SqlResolver import sqlResolver
-from Reasoning import reason
+from sqlObjects.SqlResolver import sqlResolver
+from validations.Reasoning import reason
 
 def checkQuotations(validator):
     sqlTokens = validator.tokens
@@ -78,7 +78,7 @@ def misQuotedAlias(token, tokenIndex, validator, innerIndex = None):
                 resolver = sqlResolver(validator, tokenIndex, tokenValue, reason["aliasMissingQuotes"], innerIndex)
                 resolver.dynamicTokenChange()
 
-    identifierRegex = r"(?i)(.+)(?= as )"
+    identifierRegex = r"(?i)(.+$)(?= as )"
     identifierMatch = re.search(identifierRegex, tokenValue)
 
     if identifierMatch is not None:
