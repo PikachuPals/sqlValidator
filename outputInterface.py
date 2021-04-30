@@ -40,7 +40,7 @@ def finalQueryOutput(mainQuery, queryStatements):
     print(finalQuery)
     print("\n")
 
-    if !replIt:
+    if not replIt:
         confirmation = input("Copy to Clipboard Y/N? ").upper()
 
         if confirmation == "Y" or confirmation == "YES":
