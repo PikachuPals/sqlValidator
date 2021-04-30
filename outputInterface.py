@@ -1,6 +1,6 @@
 import pyperclip
 
-from config import cmdLine
+from config import cmdLine, replIt
 import sqlparse
 
 def cmdLineOutput(statement, change, reason):
@@ -40,10 +40,11 @@ def finalQueryOutput(mainQuery, queryStatements):
     print(finalQuery)
     print("\n")
 
-    confirmation = input("Copy to Clipboard Y/N? ").upper()
+    if !replIt:
+        confirmation = input("Copy to Clipboard Y/N? ").upper()
 
-    if confirmation == "Y" or confirmation == "YES":
-        pyperclip.copy(finalQuery)
+        if confirmation == "Y" or confirmation == "YES":
+            pyperclip.copy(finalQuery)
 
 def outputFinalQuery(mainQuery, queryStatements):
     if cmdLine:
