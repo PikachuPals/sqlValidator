@@ -4,8 +4,10 @@ def identifySubQueries(query):
     openingParenthesis = list()
     subQueries = {}
 
+    # Identifies (select of any case.
     subre = re.compile("(?i)\(\s*(select)")
 
+    # Iterate through and find matching parenthesis.
     for index in range(0, len(query)):
         character = query[index]
 
@@ -18,13 +20,9 @@ def identifySubQueries(query):
 
             else:
                 startIndex = openingParenthesis.pop()
+
+                # If regex matches, it is a subquery.
                 if subre.match(query[startIndex:index + 1]) is not None:
                     subQueries[startIndex] = index + 1
 
     return subQueries
-
-def findAll(searchString, query):
-    index = query.find(searchString)
-    while index != -1:
-        yield index
-        index = query.find(searchString, index + 1)
