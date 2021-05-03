@@ -78,8 +78,9 @@ def misQuotedAlias(token, tokenIndex, validator, innerIndex = None):
                 resolver = sqlResolver(validator, tokenIndex, tokenValue, reason["aliasMissingQuotes"], innerIndex)
                 resolver.dynamicTokenChange()
 
-    identifierRegex = r"(?i)(.+$)(?= as )"
+    identifierRegex = r"(?i)(.+)(?= as )"
     identifierMatch = re.search(identifierRegex, tokenValue)
+    print(tokenValue)
 
     if identifierMatch is not None:
         indices = identifierMatch.span()
