@@ -35,6 +35,7 @@ class sqlResolver:
         errorInStatement = underlineText(placeholderParse.tokens[self.tokenIndex].tokens[self.innerIndex].value)
         placeholderParse.tokens[self.tokenIndex].tokens[self.innerIndex].value = errorInStatement
 
+        # Checks if token contains tokens attribute, to underline all tokens rather than one.
         if hasattr(placeholderParse.tokens[self.tokenIndex].tokens[self.innerIndex], 'tokens'):
             errorInStatement = underlineTokenList(placeholderParse.tokens[self.tokenIndex].tokens[self.innerIndex].tokens)
             placeholderParse.tokens[self.tokenIndex].tokens[self.innerIndex].tokens = errorInStatement
@@ -53,20 +54,6 @@ class sqlResolver:
             self.innerTokenRootChange()
         else:
             self.rootChange()
-
-    def innerTokenChange(self):
-        pass
-
-    def whereLeftChange(self):
-        newString = underlineText(validator.tokens[self.tokenIndex].value)
-        newToken = sqlparse.parse(newString)[0].tokens[0]
-
-        validator.alterQuery(self.tokenIndex, newToken)
-
-        OI.cmdLineOutput(validator.parsed, change, self.reason)
-
-    def whereRightChange(self):
-        return None
 
 def underlineText(text):
     return u"\u001b[4m" + text + "\u001b[0m"
