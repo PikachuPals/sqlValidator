@@ -30,6 +30,7 @@ def checkTableAlias(validator):
                     if innerToken.ttype == sqlparse.tokens.Token.Keyword:
                         incorrectAlias(token, tokenIndex, validator)
 
+            # Alternative corrections for identifierlists.
             elif isinstance(token, IdentifierList):
                 for innerIndex, identifier in enumerate(token.tokens):
                     if identifier.is_group:

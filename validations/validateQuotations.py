@@ -56,13 +56,16 @@ def misQuotedInnerIdentifier(token, tokenIndex, innerIndex, validator):
 def misQuotedAlias(token, tokenIndex, validator, innerIndex = None):
     tokenValue = token.value
 
+    # Regex to find words after as.
     aliasRegex = r"(?i)(?<= as )(.+$)"
     aliasMatch = re.search(aliasRegex, tokenValue)
 
+    # If it finds a match.
     if aliasMatch is not None:
         indices = aliasMatch.span()
         alias = aliasMatch.group(0)
 
+        # Correct the wrong quotations.
         if alias.startswith("'") and alias.endswith("'"):
             alias = '"' + alias[1: -1] + '"'
             tokenValue = tokenValue[:indices[0]] + alias + tokenValue[indices[1]:]
@@ -78,6 +81,7 @@ def misQuotedAlias(token, tokenIndex, validator, innerIndex = None):
                 resolver = sqlResolver(validator, tokenIndex, tokenValue, reason["aliasMissingQuotes"], innerIndex)
                 resolver.dynamicTokenChange()
 
+    # Regex to find identifiers.
     identifierRegex = r"(?i)(.+)(?= as )"
     identifierMatch = re.search(identifierRegex, tokenValue)
 
