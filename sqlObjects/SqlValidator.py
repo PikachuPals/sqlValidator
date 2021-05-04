@@ -23,6 +23,7 @@ class sqlValidator:
     def getParsed(self):
         return sqlparse.parse(self.query)[0]
 
+    # Methods to alter token structure
     def alterQuery(self, tokenIndex, newToken):
         self.parsed.tokens[tokenIndex] = newToken
         self.query = str(self.parsed)
