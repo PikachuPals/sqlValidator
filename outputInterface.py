@@ -21,6 +21,8 @@ def cmdLineOutput(statement, change, reason):
 
 def output(statement, change, reason):
     input = False;
+
+    # Check if command line mode.
     if cmdLine:
         input = cmdLineOutput(statement, change, reason)
 
@@ -38,6 +40,7 @@ def finalQueryOutput(mainQuery, queryStatements):
     print(finalQuery)
     print("\n")
 
+    # Check for repl.it deployment
     if not replIt:
         import pyperclip
 
