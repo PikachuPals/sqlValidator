@@ -80,7 +80,6 @@ def misQuotedAlias(token, tokenIndex, validator, innerIndex = None):
 
     identifierRegex = r"(?i)(.+)(?= as )"
     identifierMatch = re.search(identifierRegex, tokenValue)
-    print(tokenValue)
 
     if identifierMatch is not None:
         indices = identifierMatch.span()
