@@ -19,8 +19,13 @@ class sqlResolver:
     # Function to change a token on parse.
     def rootChange(self):
         placeholderParse = self.validator.getParsed()
-        errorInStatement = underlineText(placeholderParse.tokens[self.tokenIndex].value)
-        placeholderParse.tokens[self.tokenIndex].value = errorInStatement
+
+        if hasattr(placeholderParse.tokens[self.tokenIndex], 'tokens'):
+            errorInStatement = underlineTokenList(placeholderParse.tokens[self.tokenIndex].tokens)
+            placeholderParse.tokens[self.tokenIndex].tokens = errorInStatement
+        else:
+            errorInStatement = underlineText(placeholderParse.tokens[self.tokenIndex].value)
+            placeholderParse.tokens[self.tokenIndex].value = errorInStatement
 
         if OI.output(placeholderParse, self.change, self.reason):
             newToken = sqlparse.parse(self.change)[0].tokens[0]
