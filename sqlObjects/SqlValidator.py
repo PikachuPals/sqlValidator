@@ -2,7 +2,6 @@ import sqlparse
 from sqlparse.tokens import *
 import re
 
-import SqlTokens as retrieveTokens
 import validations.validationManager as valManager
 
 class sqlValidator:
