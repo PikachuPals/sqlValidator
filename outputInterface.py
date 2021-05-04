@@ -1,5 +1,3 @@
-import pyperclip
-
 from config import cmdLine, replIt
 import sqlparse
 
@@ -41,6 +39,8 @@ def finalQueryOutput(mainQuery, queryStatements):
     print("\n")
 
     if not replIt:
+        import pyperclip
+
         confirmation = input("Copy to Clipboard Y/N? ").upper()
 
         if confirmation == "Y" or confirmation == "YES":
